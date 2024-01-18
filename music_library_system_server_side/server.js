@@ -5,8 +5,8 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const usersModel = require('./model/users_information/users');
 const ArtistsModel = require('./model/artists/artists');
-const AlbumsModel = require('./model/albums/albums'); 
-const SongsModel = require('./model/songs/songs'); 
+const AlbumsModel = require('./model/albums/albums');
+const SongsModel = require('./model/songs/songs');
 
 app.use(cors());
 app.use(express.json());
@@ -68,10 +68,9 @@ app.delete('/deleteAlbums/:id', verifyJWT, AlbumsModel.deleteAlbums);
 app.post('/createSongs', verifyJWT, SongsModel.createSongs);
 app.get('/getSongs', SongsModel.getSongs);
 app.get('/getSpecificSongs/:email', SongsModel.getSpecificSongs)
-
+app.put('/updateSongs/:id', verifyJWT, SongsModel.updateSongs)
+app.delete('/deleteSongs/:id', verifyJWT, SongsModel.deleteSongs);
 // songs part start
-
-
 
 
 

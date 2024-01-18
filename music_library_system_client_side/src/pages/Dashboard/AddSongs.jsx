@@ -28,6 +28,7 @@ const AddSongs = () => {
     saveSongsData(SongData).then(data => {
       console.log(data)
       setLoading(false)
+      navigate('/dashboard/my-songs')
     })
   }
 

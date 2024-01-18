@@ -7,6 +7,7 @@ import Dashboard from '../pages/Dashboard/Home/Dashboard'
 import AddAlbums from '../pages/Dashboard/AddAlbums'
 import MyAlbums from '../pages/Dashboard/MyAlbums'
 import AddSongs from '../pages/Dashboard/AddSongs'
+import MySongs from '../pages/Dashboard/MySongs'
 
 export const router = createBrowserRouter([
   { path: '/', element: <SignUp /> },
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
       { path: '/dashboard/add-albums', element: <AddAlbums /> },
       { path: '/dashboard/my-albums', element: <MyAlbums /> },
       { path: '/dashboard/add-songs', element: <AddSongs /> },
+      { path: '/dashboard/my-songs', element: <MySongs /> },
     ],
   },
 ])

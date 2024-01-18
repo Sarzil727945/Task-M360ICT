@@ -1,37 +1,55 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { updateAlbums } from '../../api/albums'
-import UpdateAlbumForm from '../Forms/UpdateAlbumForm'
+import UpdateSongForm from '../Forms/UpdateSongForm'
+import { updateSongs } from '../../api/songs'
 
-const UpdateAlbumModal = ({ setIsEditModalOpen, isOpen, fetchSpecificAlbums, album, id }) => {
+const UpdateSongModal = ({ setIsEditModalOpen, isOpen,  song, id, fetchSpecificSongs }) => {
   const [loading, setLoading] = useState(false)
-  const [Albums, setAlbums] = useState(album)
-  const [selectedArtists, setSelectedArtists] = useState([]);
+  const [dates, setDates] = useState({
+    startDate: new Date(song?.start_date),
+    endDate: new Date(song?.end_date),
+    key: 'selection',
+  })
+  const [songData, setSongData] = useState(song)
 
 
   const handleSubmit = event => {
-    event.preventDefault()
+    event.preventDefault() 
 
-    const id = Albums?.id
-    const title = Albums?.title;
-    const genre = Albums?.genre;
-    const year = Albums?.release_year
-    const artistID = selectedArtists + ''
-    const hostEmail = Albums?.host_email
+    const id = songData?.id
+    const title = songData?.title
+    const startDate = dates?.startDate
+    const endDate = dates?.endDate
+    const email = songData?.host_email
 
-    const albumsUpdateData = { id, title, genre, year, artistID, hostEmail }
+    const songsUpdateData = {id, title, startDate, endDate, email}
+    
     setLoading(true)
+    updateSongs(id, songsUpdateData)
+      .then(data => {
+        console.log(data)
+        toast.success('Song info updated')
+        setLoading(false)
+        fetchSpecificSongs()
+        setIsEditModalOpen(false)
+      })
+      .catch(err => {
+        console.log(err)
+        setLoading(false)
+      })
 
-    updateAlbums(id, albumsUpdateData).then(data => {
-      toast.success('Albums info updated')
-      setLoading(false)
-      fetchSpecificAlbums()
-      setIsEditModalOpen(false)
-    })
   }
 
-
+  const handleDates = ranges => {
+    setDates(ranges.selection)
+    setSongData({
+      ...songData,
+      to: ranges.selection.endDate,
+      from: ranges.selection.startDate,
+    })
+  }
+  
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
@@ -67,16 +85,16 @@ const UpdateAlbumModal = ({ setIsEditModalOpen, isOpen, fetchSpecificAlbums, alb
                   as='h3'
                   className='text-lg font-medium text-center leading-6 text-gray-900'
                 >
-                  Update Album Info
+                  Update Song Info
                 </Dialog.Title>
                 <div className='mt-2 w-full'>
-                  <UpdateAlbumForm
+                  <UpdateSongForm
                     handleSubmit={handleSubmit}
-                    Albums={Albums}
-                    setAlbums={setAlbums}
+                    songData={songData}
+                    setSongData={setSongData}
                     loading={loading}
-                    selectedArtists={selectedArtists}
-                    setSelectedArtists={setSelectedArtists}
+                    dates={dates}
+                    handleDates={handleDates}
                   />
                 </div>
                 <hr className='mt-8 ' />
@@ -98,4 +116,4 @@ const UpdateAlbumModal = ({ setIsEditModalOpen, isOpen, fetchSpecificAlbums, alb
   )
 }
 
-export default UpdateAlbumModal
+export default UpdateSongModal
