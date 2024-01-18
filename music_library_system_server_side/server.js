@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const usersModel = require('./model/users_information/users');
 const ArtistsModel = require('./model/artists/artists');
 const AlbumsModel = require('./model/albums/albums'); 
+const SongsModel = require('./model/songs/songs'); 
 
 app.use(cors());
 app.use(express.json());
@@ -44,18 +45,31 @@ app.post('/jwt', (req, res) => {
   res.json({ token });
 });
 
+// users part start
 app.post('/createUsers', usersModel.createUsers);
 app.get('/getUsers', usersModel.getUsers);
 app.get('/getSpecificUser/:email', usersModel.getSpecificUser)
+// users part end
 
+// artist part start
 app.get('/getArtists', ArtistsModel.getArtists);
+// artist part end
 
-
+// albums part start
 app.post('/createAlbums', verifyJWT, AlbumsModel.createAlbums);
 app.get('/getAlbums', AlbumsModel.getAlbums);
 app.get('/getSpecificAlbums/:email', AlbumsModel.getSpecificAlbums)
 app.put('/updateAlbums/:id', verifyJWT, AlbumsModel.updateAlbums)
 app.delete('/deleteAlbums/:id', verifyJWT, AlbumsModel.deleteAlbums);
+// albums part end
+
+
+// songs part start
+app.post('/createSongs', verifyJWT, SongsModel.createSongs);
+app.get('/getSongs', SongsModel.getSongs);
+app.get('/getSpecificSongs/:email', SongsModel.getSpecificSongs)
+
+// songs part start
 
 
 
