@@ -57,7 +57,7 @@ const AlbumsModel = {
         }
     },
 
-    getAlbums: async (req, res) => {
+    getAllAlbums: async (req, res) => {
         try {
             const data = "select * from albums  order by id asc";
             connection.query(data, function (error, result) {

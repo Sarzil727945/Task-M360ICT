@@ -14,8 +14,8 @@ export const saveAlbumsData = async (albumsData) => {
 }
 
 // getAll a Albums
-export const getAlbums = async () => {
-  const response = await fetch(`http://localhost:5005/getAlbums`)
+export const getAllAlbums = async () => {
+  const response = await fetch(`http://localhost:5005/getAllAlbums`)
   const albums = await response.json()
   return albums
 }

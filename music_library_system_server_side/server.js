@@ -57,7 +57,7 @@ app.get('/getArtists', ArtistsModel.getArtists);
 
 // albums part start
 app.post('/createAlbums', verifyJWT, AlbumsModel.createAlbums);
-app.get('/getAlbums', AlbumsModel.getAlbums);
+app.get('/getAllAlbums', AlbumsModel.getAllAlbums);
 app.get('/getSpecificAlbums/:email', AlbumsModel.getSpecificAlbums)
 app.put('/updateAlbums/:id', verifyJWT, AlbumsModel.updateAlbums)
 app.delete('/deleteAlbums/:id', verifyJWT, AlbumsModel.deleteAlbums);
