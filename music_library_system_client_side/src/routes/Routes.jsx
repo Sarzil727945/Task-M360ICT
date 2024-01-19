@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      { path: '/dashboard/my-dashboard/', element: <Dashboard /> },
+      { path: '/dashboard/my-dashboard', element: <Dashboard /> },
       { path: '/dashboard/add-albums', element: <AddAlbums /> },
       { path: '/dashboard/my-albums', element: <MyAlbums /> },
       { path: '/dashboard/all-albums', element: <AllAlbums /> },

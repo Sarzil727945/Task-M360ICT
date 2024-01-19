@@ -23,7 +23,7 @@ const SignUp = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const from = location.state?.from?.pathname || '/dashboard/my-dashboard'
-  setLoading(false)
+
   const [passwordShown, setPasswordShown] = useState(false);
   const [passwordIcon, setPasswordIcon] = useState(false);
   const togglePassword = () => {
@@ -74,7 +74,7 @@ const SignUp = () => {
               updateUserProfile(name, imageUrl)
                 .then(() => {
                   // save user to db
-                  saveUser(result.user, password)
+                  saveUser(result.user)
                   toast.success('SignUp successful')
                   navigate(from, { replace: true })
                 })
@@ -302,6 +302,9 @@ const SignUp = () => {
               >
                 <div className='space-y-4'>
                   <div>
+                    {/* <label htmlFor='email' className='block mb-2 text-sm'>
+                    Name
+                  </label> */}
                     <div className=' relative '>
                       <input
                         required
@@ -321,6 +324,7 @@ const SignUp = () => {
                         Select Image:
                       </label>
                       <input
+                        required
                         type='file'
                         id='image'
                         name='image'
@@ -331,6 +335,9 @@ const SignUp = () => {
                   </div>
                   <div>
                     <div className='flex justify-between'>
+                      {/* <label htmlFor='email' className='block mb-2 text-sm'>
+                    Email address
+                  </label> */}
                     </div>
                     <div className=' relative my-2'>
                       <input
@@ -347,6 +354,9 @@ const SignUp = () => {
 
                   <div>
                     <div className='flex justify-between'>
+                      {/* <label htmlFor='password' className='text-sm mb-2'>
+                      Password
+                    </label> */}
                     </div>
                     <div className=' relative my-2'>
                       <input
