@@ -24,10 +24,17 @@ const UpdateAlbumModal = ({ setIsEditModalOpen, isOpen, fetchSpecificAlbums, alb
     setLoading(true)
 
     updateAlbums(id, albumsUpdateData).then(data => {
-      toast.success('Albums info updated')
-      setLoading(false)
-      fetchSpecificAlbums()
-      setIsEditModalOpen(false)
+      if (data.insertId === 0) {
+        toast.success('Albums info updated')
+        fetchSpecificAlbums()
+        setIsEditModalOpen(false)
+        setLoading(false)
+      }
+      else{
+        toast.error('Albums info Not updated')
+        setIsEditModalOpen(false)
+        setLoading(false)
+      }
     })
   }
 

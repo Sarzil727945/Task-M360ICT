@@ -28,11 +28,16 @@ const UpdateSongModal = ({ setIsEditModalOpen, isOpen,  song, id, fetchSpecificS
     setLoading(true)
     updateSongs(id, songsUpdateData)
       .then(data => {
-        console.log(data)
-        toast.success('Song info updated')
         setLoading(false)
-        fetchSpecificSongs()
-        setIsEditModalOpen(false)
+        if (data.insertId === 0) {
+          toast.success('Song info updated')
+          fetchSpecificSongs()
+          setIsEditModalOpen(false)
+        }
+        else{
+          toast.error('Song info Not updated')
+          setIsEditModalOpen(false)
+        }
       })
       .catch(err => {
         console.log(err)

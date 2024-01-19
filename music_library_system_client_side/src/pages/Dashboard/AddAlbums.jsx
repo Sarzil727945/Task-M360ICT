@@ -5,6 +5,7 @@ import { AuthContext } from '../../providers/AuthProvider'
 import { useNavigate } from 'react-router-dom'
 import { saveAlbumsData } from '../../api/albums'
 import { getArtists } from '../../api/artists'
+import toast from 'react-hot-toast'
 
 const AddAlbums = () => {
   const navigate = useNavigate()
@@ -30,9 +31,14 @@ const AddAlbums = () => {
 
     saveAlbumsData(albumsData)
     .then((data) => {
-      console.log(data);
       setLoading(false);
-      navigate('/dashboard/my-albums')
+      if (data.insertId >= 0) {
+        toast.success('Album Added successfully')
+        navigate('/dashboard/my-albums')
+      }
+      else{
+        toast.error('Album Not Added')
+      }
     })
     .catch((error) => {
       console.error('Error posting data:', error);
@@ -44,10 +50,8 @@ const AddAlbums = () => {
   const handleCheckboxChange = (artistId) => {
     setSelectedArtists((prevSelected) => {
       if (prevSelected.includes(artistId)) {
-        // Remove the artist if already selected
         return prevSelected.filter((id) => id !== artistId);
       } else {
-        // Add the artist if not selected
         return [...prevSelected, artistId];
       }
     });

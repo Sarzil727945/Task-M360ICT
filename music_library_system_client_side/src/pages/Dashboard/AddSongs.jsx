@@ -14,6 +14,7 @@ const AddSongs = () => {
     key: 'selection',
   })
   const [loading, setLoading] = useState(false)
+  
   // handle form submit
   const handleSubmit = event => {
     event.preventDefault()
@@ -26,9 +27,14 @@ const AddSongs = () => {
 
     const SongData = { title, startDate, endDate, email }
     saveSongsData(SongData).then(data => {
-      console.log(data)
       setLoading(false)
-      navigate('/dashboard/my-songs')
+      if (data.insertId >= 0) {
+        toast.success('Song Added successfully')
+        navigate('/dashboard/my-songs')
+      }
+      else{
+        toast.error('Song Not Added')
+      }     
     })
   }
 

@@ -20,7 +20,12 @@ const SongDataRow = ({ song, fetchSpecificSongs }) => {
     deleteSongs(id)
       .then(data => {
         fetchSpecificSongs()
-        toast.success('Room deleted')
+        if (data.insertId === 0) {
+          toast.success('Song deleted')
+        }
+        else{
+          toast.error('Song Not deleted')
+        }
       })
       .catch(err => console.log(err))
     closeModal()

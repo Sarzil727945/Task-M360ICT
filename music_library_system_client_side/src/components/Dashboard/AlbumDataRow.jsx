@@ -18,7 +18,12 @@ const AlbumDataRow = ({ album, fetchSpecificAlbums }) => {
     deleteAlbums(id)
       .then(data => {
         fetchSpecificAlbums()
-        toast.success('Room deleted')
+        if (data.insertId === 0) {
+          toast.success('Album deleted')
+        }
+        else{
+          toast.error('Album Not deleted')
+        }
       })
       .catch(err => console.log(err))
     closeModal()
